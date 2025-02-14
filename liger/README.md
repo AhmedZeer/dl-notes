@@ -49,3 +49,11 @@ transformer building blocks kernels implemented in CUDA/Triton.
 - `EffecientCrossEntropy`: Fuses the linear projection with the
 cross entropy loss, and computes the loss in a block-wise manner
 to avoid materializing the entire logits tensor.
+
+### kernels
+
+- `RMSNorm`: Fusing the normalization and the sacling steps in the 
+regular RMSNorm was done in the following way:
+$$
+y = \hat{x} \odot \gamma, \quad \hat{x} = \frac{x}{\text{RMS}(x)},
+$$
