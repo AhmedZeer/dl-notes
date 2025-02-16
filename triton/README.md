@@ -79,13 +79,26 @@ chains in the SSA representation.
 ---
 
 ### Triton-JIT
+- The purpose of the JIT compiler is to transform Triton-IR code into
+efficient machine code, via `Machine Dependent & Independent` passes backed
+by an `autotuning` engine.
 
-
-
-
-
-
-
-
-
-
+---
+- `Prefetching`: Loops can be very inefficient for tile-level memory
+operations. This can be mitigated by detecting loops at the IR
+level and adding prefetching code where necessary.
+- `Peephole`: Since we leverage tile-level computations, new peephole
+optimizations can be done, like X = (X^T)^T
+---
+- `Hierarchical Tilling`: Decomposing relatively large tiles into macro/nano
+tiles to ultimately fit memory and computing capabilities.
+- `Memory Coalescing`: Since we access multiple adjacent memory addresses
+with a single instruction, not utilizing these addresses directly leads
+to inefficiencies. Fortunately, we can design a compiler to handle coalesced
+memory accesses when possible.
+- `Shared Memory Allocation`: Operations with high computation costs can 
+save their operands in Shared Memory for faster calculations. The pass
+is responsible of determining when and where to store a tile.
+- `Shared Memory Synchronization`: Since SRAM operations are async, the risk
+of race condition or other unwanted behaviours could arise. So, we add 
+some code to form a kind of barrier ensuring thread-safety.
