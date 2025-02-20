@@ -1,5 +1,6 @@
 # Liger
 [Paper](https://arxiv.org/pdf/2410.10989) 
+[Video](https://www.youtube.com/watch?v=gWble4FreV4) 
 
 ### Introduction
 - The latency and performance degradation occurring when using
@@ -48,4 +49,7 @@ transformer building blocks kernels implemented in CUDA/Triton.
 
 - `EffecientCrossEntropy`: Fuses the linear projection with the
 cross entropy loss, and computes the loss in a block-wise manner
-to avoid materializing the entire logits tensor.
+to avoid materializing the entire logits tensor. Furthermore,
+we overwrite the logits tensor with their gradients to
+minimize memory usage. Finally, these changes mean calculating
+the gradients and the forward pass in a single kernel.
