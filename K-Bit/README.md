@@ -1,7 +1,7 @@
 # K-bit Methods for Efficient Deep Learning
 [Video](https://youtu.be/2ETNONas068?si=Mv6MCe-It3Kd9ojU) 
 
-## Qunatization By Definition.
+### Qunatization By Definition.
 - We have a set of indices {0, 1, 2, 3, ...} which correspond to all
   the possible values of a data type.
 
